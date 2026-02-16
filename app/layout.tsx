@@ -2,13 +2,12 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 
-import { Button } from "@/components/ui/button";
 import { ClerkProvider } from "@clerk/nextjs";
 
 import HeaderWrapper from "@/components/layout/header-wrapper";
 import Footer from "@/components/layout/footer";
-// import { QueryProvider } from "@/components/providers/query-provider";
-// import { Toaster } from "@/components/ui/sonner";
+import { QueryProvider } from "@/components/providers/query-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const outfitFont = Outfit({
   subsets: ["latin"],
@@ -30,14 +29,14 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${outfitFont.className} antialiased`}>
-          {/* <QueryProvider> */}
+          <QueryProvider>
             <HeaderWrapper />
             
             {children}
             
             <Footer />
-          {/* </QueryProvider> */}
-          {/* <Toaster position="top-right" /> */}
+          </QueryProvider>
+          <Toaster position="top-right" />
         </body>
       </html>
     </ClerkProvider>
