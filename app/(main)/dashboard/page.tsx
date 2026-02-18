@@ -8,8 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-// import { UserAvatar } from "@/components/ui/user-avatar";
-// import { useMatches } from "@/hooks/use-ai-partner";
+import { UserAvatar } from "@/components/ui/user-avatar";
+import { useMatches } from "@/hooks/use-ai-partner";
 import { client } from "@/lib/api-client";
 
 import { useUser } from "@clerk/nextjs";
@@ -43,41 +43,41 @@ export default function DashboardPage() {
     },
   });
 
-  // const { data: allMatches } = useQuery({
-  //   queryKey: ["allMatches"],
-  //   queryFn: async () => {
-  //     const res = await client.api.matches["allmatches"].$get();
-  //     if (!res.ok) {
-  //       throw new Error("Failed to fetch pending matches");
-  //     }
-  //     return res.json();
-  //   },
-  // });
+  const { data: allMatches } = useQuery({
+    queryKey: ["allMatches"],
+    queryFn: async () => {
+      const res = await client.api.matches["allmatches"].$get();
+      if (!res.ok) {
+        throw new Error("Failed to fetch pending matches");
+      }
+      return res.json();
+    },
+  });
 
-  // const pendingMatchesData = allMatches?.filter(
-  //   (match) => match.status === "pending"
-  // );
-  // const activeMatchesData = allMatches?.filter(
-  //   (match) => match.status === "accepted"
-  // );
+  const pendingMatchesData = allMatches?.filter(
+    (match) => match.status === "pending"
+  );
+  const activeMatchesData = allMatches?.filter(
+    (match) => match.status === "accepted"
+  );
 
-  // const { data: learningGoals } = useQuery({
-  //   queryKey: ["communityGoals"],
-  //   queryFn: async () => {
-  //     const res = await client.api.communities.goals.$get();
-  //     if (!res.ok) {
-  //       throw new Error("Failed to fetch learning goals");
-  //     }
-  //     return res.json();
-  //   },
-  //   enabled: !!userCommunities?.length,
-  // });
+  const { data: learningGoals } = useQuery({
+    queryKey: ["communityGoals"],
+    queryFn: async () => {
+      const res = await client.api.communities.goals.$get();
+      if (!res.ok) {
+        throw new Error("Failed to fetch learning goals");
+      }
+      return res.json();
+    },
+    enabled: !!userCommunities?.length,
+  });
 
-  // const {
-  //   data: matches,
-  //   isLoading: isLoadingMatches,
-  //   error: errorMatches,
-  // } = useMatches();
+  const {
+    data: matches,
+    isLoading: isLoadingMatches,
+    error: errorMatches,
+  } = useMatches();
 
   if (isLoadingUserCommunities) return <div>Loading...</div>;
   if (errorUserCommunities)
@@ -96,7 +96,7 @@ export default function DashboardPage() {
       
       </div>
 
-      {/* <Card className="border-primary">
+      <Card className="border-primary">
         <CardHeader>
           <CardTitle>
             🎉 You have {pendingMatchesData?.length} new{" "}
@@ -112,14 +112,14 @@ export default function DashboardPage() {
             <Button>Review Matches</Button>
           </Link>
         </CardContent>
-      </Card> */}
+      </Card>
 
       <div className="grid gap-4 md:grid-cols-4">
         <StatsCard
           title="Your Communities"
           value={userCommunities?.length || 0}
         />
-        {/* <StatsCard 
+        <StatsCard 
           title="Learning Goals" 
           value={learningGoals?.length || 0} 
         />
@@ -130,7 +130,7 @@ export default function DashboardPage() {
         <StatsCard
           title="Pending Matches"
           value={pendingMatchesData?.length || 0}
-        /> */}
+        />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
@@ -151,7 +151,7 @@ export default function DashboardPage() {
             <CardDescription>Conversations you&apos;re part of</CardDescription>
           </CardHeader>
 
-          {/* <CardContent>
+          <CardContent>
             <div className="flex flex-col gap-3">
               {matches?.map((match) => (
                 <Link href={`/chat/${match.id}`} key={match.id}>
@@ -179,7 +179,7 @@ export default function DashboardPage() {
                 </Link>
               ))}
             </div>
-          </CardContent> */}
+          </CardContent>
         </Card>
 
         <Card>

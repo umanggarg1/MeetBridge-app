@@ -11,11 +11,16 @@ type Variables = {
 
 const communitiesApp = new Hono<{ Variables: Variables }>()
   .use("/*", authMiddleware)
+  
   .get("/all", async (c) => {
+    
     const allCommunities = await db.select().from(communities);
+    
     return c.json(allCommunities);
+  
   })
   .get("/", async (c) => {
+
     const user = c.get("user");
 
     const userCommunities = await db
@@ -31,9 +36,12 @@ const communitiesApp = new Hono<{ Variables: Variables }>()
       .where(eq(communityMembers.userId, user.id));
 
     return c.json(userCommunities);
+
   })
   .post("/:communityId/join", async (c) => {
+    
     const user = c.get("user");
+    
     const communityId = c.req.param("communityId");
 
     const [existing] = await db
@@ -56,10 +64,12 @@ const communitiesApp = new Hono<{ Variables: Variables }>()
       userId: user.id,
       communityId: communityId,
     });
+    
     return c.json({
       message: "Joined community successfully",
       communityId: communityId,
     });
+  
   })
   .get("/:communityId/goals", async (c) => {
     const user = c.get("user");

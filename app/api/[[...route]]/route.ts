@@ -3,10 +3,10 @@ import { Hono } from "hono";
 import { handle } from "hono/vercel";
 import { HTTPException } from "hono/http-exception";
 import { communitiesApp } from "@/app/server/community-routes";
-// import { learningGoalsApp } from "@/app/server/learning-goals-routes";
-// import { matchesApp } from "@/app/server/matches-routes";
-// import { conversationsApp } from "@/app/server/conversations-routes";
-// import { userApp } from "@/app/server/users-routes";
+import { learningGoalsApp } from "@/app/server/learning-goals-routes";
+import { matchesApp } from "@/app/server/matches-routes";
+import { conversationsApp } from "@/app/server/conversations-routes";
+import { userApp } from "@/app/server/users-routes";
 
 type Variables = {
   userId: string;
@@ -59,10 +59,10 @@ app.use("/*", async (c, next) => {
 
 const routes = app
   .route("/communities", communitiesApp)
-  // .route("/communities", learningGoalsApp)
-  // .route("/matches", matchesApp)
-  // .route("/conversations", conversationsApp)
-  // .route("/user", userApp);
+  .route("/communities", learningGoalsApp)
+  .route("/matches", matchesApp)
+  .route("/conversations", conversationsApp)
+  .route("/user", userApp);
 
 export type AppType = typeof routes;
 

@@ -8,7 +8,10 @@ import { MotionDiv } from "../ui/motion-div";
 export default function HeroSection() {
   return (
     <section className="relative overflow-hidden">
-      <HeroGradient />
+      
+      {/* HeroGradient is created in background-gradient.tsx file */}
+      <HeroGradient /> 
+
       <div className="relative section-container section-padding">
         <div className="text-center">
           <Badge className="mb-6 text-sm font-medium" variant="secondary">
